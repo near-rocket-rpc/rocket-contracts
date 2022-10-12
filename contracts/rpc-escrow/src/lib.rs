@@ -48,6 +48,15 @@ impl Escrow {
         }
         .emit();
     }
+
+    pub fn batch_charge(
+        &mut self,
+        charges: Vec<(AccountId, U128)>,
+    ) {
+        charges.iter().for_each(|(account_id, amount)| {
+            self.charge(account_id.clone(), *amount);
+        })
+    }
 }
 
 #[near_bindgen]
