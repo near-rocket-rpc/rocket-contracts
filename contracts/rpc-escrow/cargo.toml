@@ -1,0 +1,14 @@
+[package]
+name = "rpc-escrow"
+version = "0.1.0"
+authors = ["danielwpz"]
+edition = "2018"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+uint = { version = "0.9.3", default-features = false }
+near-sdk = "4.0.0"
+near-contract-standards = "4.0.0"
