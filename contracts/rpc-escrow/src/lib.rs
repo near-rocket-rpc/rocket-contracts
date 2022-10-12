@@ -54,16 +54,16 @@ impl Escrow {
 impl FungibleTokenReceiver for Escrow {
     fn ft_on_transfer(
         &mut self,
-        sender: AccountId,
+        sender_id: AccountId,
         amount: U128,
-        _msg: String,
+        msg: String,
     ) -> PromiseOrValue<U128> {
-        let balance = self.balances.get(&sender).unwrap_or(0);
+        let balance = self.balances.get(&sender_id).unwrap_or(0);
         let new_balance = balance + amount.0;
-        self.balances.insert(&sender, &new_balance);
+        self.balances.insert(&sender_id, &new_balance);
 
         Event::Deposit {
-            account_id: &sender,
+            account_id: &sender_id,
             amount: &amount,
         }
         .emit();
