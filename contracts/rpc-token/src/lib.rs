@@ -55,16 +55,13 @@ impl FungibleTokenMetadataProvider for Token {
 #[near_bindgen]
 impl Token {
     /// mint new RPC tokens
-    /// only owner is allowed to mint
-    pub fn mint(&mut self, amount: U128, account_id: AccountId) {
-        require!(
-            env::predecessor_account_id() == self.owner_id,
-            "Only owner can mint"
-        );
+    pub fn mint(&mut self) {
+        let account_id = env::predecessor_account_id();
+        let amount = 1_000 * 1_000_000_000_000_000_000; // 1000 RPC
 
         if !self.tokens.accounts.contains_key(&account_id) {
             self.tokens.internal_register_account(&account_id);
         }
-        self.tokens.internal_deposit(&account_id, amount.into());
+        self.tokens.internal_deposit(&account_id, amount);
     }
 }
